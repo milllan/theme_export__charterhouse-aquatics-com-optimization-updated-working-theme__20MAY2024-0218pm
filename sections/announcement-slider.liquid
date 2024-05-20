@@ -1,0 +1,90 @@
+<style>
+#section-{{ section.id }} {background: {{ section.settings.background }}; color: {{ section.settings.text_color }};}
+.announcement-slider {padding:11px 20px;}
+.announcement-slider .announcement-wrapper {width: 100%;max-width: 560px;margin: auto;}
+.announcement-slides .slide-item {text-align: center;margin: 0;}
+.announcement-slides .slide-item p {text-transform: uppercase;letter-spacing: 0.18em;font-size: 1.09rem;line-height: normal !important;margin: 0;}
+.announcement-slides .owl-nav{margin-top: 0 !important;}
+.announcement-slides .owl-nav button{ position: absolute; top: 51%; transform: translateY(-50%);margin: 0 !important;}
+.announcement-slides .owl-nav button:hover, .announcement-slides .owl-nav button:focus{background:transparent !important;}
+.announcement-slides .owl-nav button span {font-size: 26px;color: #ddd;font-weight: 300;}
+.announcement-slides .owl-nav button.owl-prev {left: 0;}
+.announcement-slides .owl-nav button.owl-next {right: 0;}
+</style>
+
+{%- if section.settings.enable_bar -%}
+    <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="announcement-bar">
+      <div class="announcement-slider">
+        <div class="announcement-wrapper">
+          {%- if section.blocks.size > 0 -%}
+            <div id="owl-carousel" class="announcement-slides owl-carousel owl-theme owl-carousel-slider">
+              {%- for block in section.blocks -%}
+                <div class="slide-item item" {{ block.shopify_attributes }}>
+                    {%- if block.settings.slide-content != blank -%}
+                      {{ block.settings.slide-content }}
+                    {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement slider",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Announcement_bar",
+      "name": "Announcement bar",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "slide-content",
+          "label": "Slide Content",
+          "default": "<p>Announce something here</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+$(document).ready(function(){
+  $('.owl-carousel-slider').owlCarousel({
+    loop:true,
+    items: 1,
+    dots: false,
+    nav:true,
+    autoplay: true,
+    // animateOut: 'slideOutUp',
+    // animateIn: 'slideInUp'
+  })
+});
+</script>
+
+

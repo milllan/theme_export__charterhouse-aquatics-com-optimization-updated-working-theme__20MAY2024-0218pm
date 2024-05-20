@@ -1,0 +1,21 @@
+{% assign pagespeed_template_suffix_liquid = template.suffix | append: '.liquid' %}
+{% assign pagespeed_page_type = template.name | replace: template_suffix_liquid, '' %}
+{%- if blank -%}
+  <script type="text/javascript">
+var flspdx = new Worker("data:text/javascript;base64," + btoa('onmessage=function(e){var t=new Request("https://charterhouse-aquatics.com/cdn/shop/t/71/assets/worker-min.js",{redirect:"follow"});fetch(t).then(function(response){if(!response.ok)return response.text()}).then(function(data){postMessage(data)})};'));
+flspdx.onmessage = function (t) {
+    var e = document.createElement("script");
+    e.type = "text/javascript";
+    e.textContent = t.data;
+    document.head.appendChild(e);
+};
+flspdx.postMessage("init");
+</script>
+{%- endif -%}
+<div
+  style="position:absolute;font-size:1200px;line-height:1;word-wrap:break-word;top:0;left:0;width:96vw;height:96vh;max-width:99vw;max-height:99vh;pointer-events:none;z-index:99999999999;color:transparent;overflow:hidden;"
+  data-optimizer="Speed Boost: pagespeed-javascript"
+>
+  □
+</div>
+<script src="{{ 'worker.js' | asset_url }}" type="text/javascript"></script>

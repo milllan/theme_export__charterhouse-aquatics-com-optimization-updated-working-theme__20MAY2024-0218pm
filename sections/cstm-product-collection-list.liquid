@@ -1,0 +1,155 @@
+
+<style>
+.grid__item  img.block-img {
+     width:100%;
+     height:100%;
+object-fit: cover;
+}
+.page-padding {
+ padding-bottom:50px;
+}
+</style>
+
+<section  class="page-width page-padding">
+    {%- if section.settings.section-heading != blank -%}
+     <h2 class="title h2 text-center">{{ section.settings.section-heading }}</h2>
+      {%- endif -%}   	
+
+  <div class="grid grid--4-col-desktop grid--2-col-tablet-down">
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+
+    {%- when 'custom_block' -%}
+      <div class="grid__item underline-links-hover" {{ block.shopify_attributes }}>	
+ 
+              {%- assign image_picker_0 = block.settings.image_picker_0 -%}
+           <a class="full-unstyled-link" href="{{ block.settings.url }}">
+              <div class="section-image underline-links-hover" >
+                 {% if image_picker_0 %}   
+                  {{ image_picker_0 | image_url: width: image_picker_0.width | image_tag: class: 'block-img', loading: 'lazy' }}
+                {% else %}
+                  <img src="https://cdn.shopify.com/s/files/1/0563/6387/6487/files/no-image-icon-6.png?v=1709034732" alt="{{ collection.title | escape  }}" />
+                 {% endif %}
+              	</div>
+              <div class="section-title">
+                 {% if block.settings.text_1 %}  
+          		<h3 class="h5"> {{ block.settings.text_1 }} </h3>
+                    {% endif %}
+          	</div>
+           </a>
+    </div>
+    
+    {%- when 'product_block' -%}
+         <div class="grid__item underline-links-hover" {{ block.shopify_attributes }}>	
+      {%- assign product = block.settings.product -%}
+
+    <a class="full-unstyled-link" href="{{ product.url }}">
+              <div class="section-image">
+                {% if product.featured_image %}             
+               {{ product.featured_image | image_url: width: product.featured_image.width | image_tag: class: 'block-img', loading: 'lazy' }}
+                 {% else %}
+                  <img src="https://cdn.shopify.com/s/files/1/0563/6387/6487/files/no-image-icon-6.png?v=1709034732" alt="{{ product.title | escape  }}"   class="block-img"/>
+                 {% endif %}
+              	</div>
+              <div class="section-title">
+                   <h3 class="h5"> {{ product.title }}</h3>
+          	</div>
+    </a>
+         </div>
+
+    {%- when 'collection_block' -%}
+   <div class="grid__item  underline-links-hover" {{ block.shopify_attributes }}>	
+      {%- assign collection = block.settings.collection -%}
+	<a class="full-unstyled-link" href="{{collection.url}}">
+              <div class="section-image" >
+                  {% if collection.image %}
+            {{ collection | image_url: width: collection.width | image_tag: class: 'block-img', loading: 'lazy' }}
+                    
+               {% else %}
+                  <img src="https://cdn.shopify.com/s/files/1/0563/6387/6487/files/no-image-icon-6.png?v=1709034732" alt="{{ collection.title | escape  }}" class="block-img" />
+               {% endif %}
+              	</div>
+              <div class="section-title" >
+          	
+               <h3 class="h5"> {{ collection.title }} </h3>
+	
+          	</div>
+</a>
+         </div>
+      
+  {%- endcase -%}
+{%- endfor -%}
+  </div>
+    </section>
+
+    
+  {% comment %}
+          {%- assign collection_products = collection.products -%}
+          {%- for product in collection_products -%}
+            {{ product.title }}
+            {{ product.description }}
+          {%- endfor -%}
+        {% endcomment %}
+
+{% schema %}
+  {
+  "name": "Product/Collection List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section-heading",
+      "label": "Section Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Custom Block",
+      "type": "custom_block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image_picker_0"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "text_1"
+        },
+{
+          "type": "url",
+          "label": "Link URL",
+          "id": "url"
+        }
+      ]
+    },
+    {
+      "name": "Product Block",
+      "type": "product_block",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+    {
+      "name": "Collection Block",
+      "type": "collection_block",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product/Collection List"
+    }
+  ]
+}  
+{% endschema %}

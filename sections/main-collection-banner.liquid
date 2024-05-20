@@ -1,0 +1,228 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  @media screen and (max-width: 749px) {
+    .collection-hero--with-image .collection-hero__inner {
+      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+    }
+  }
+{%- endstyle -%}
+
+<div class="collection-hero page-width collection-hero--with-image {% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient" >
+
+ <div class="{% if collection.metafields.custom.background_image != blank or collection.metafields.custom.gradient_color != blank %} {% else %}no-background{% endif %} collection-hero__inner link-collection" style="{%- if collection.metafields.custom.background_image -%}background-image: url('{{ collection.metafields.custom.background_image.value  | img_url: 'master' }}');background-size: 100%; background-repeat: no-repeat;background-position: right;{%- else -%} background-image: linear-gradient(to right top, {% for gradient_color in collection.metafields.custom.gradient_color.value limit:4 -%}{%- if forloop.index == 1 -%}{{ gradient_color}}{% if forloop.last == blank%},{% endif %}{% elsif forloop.index == 2 %} {{ gradient_color}}{% if forloop.last == blank%},{% endif %}{% elsif forloop.index == 3 %}{{ gradient_color}}{% if forloop.last == blank%},{% endif %} {% elsif forloop.index == 4 %}{{ gradient_color}}{% if forloop.last == blank%},{% endif %}{%- endif -%} {%- endfor %});{% for gradient_color in collection.metafields.custom.gradient_color.value limit:1 -%}background-color:{{ gradient_color}};{%- endfor %};{%- endif -%}">
+    <div class="collection-hero__text-wrapper">
+     <div class="{% if collection.metafields.custom.background_image %} scroll_add{% endif %} collection-title" style="opacity: {{ section.settings.opacity }};">
+ 
+  <h2 class="collection-hero__title {{ collection.handle }}-collection">
+        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+        {{- collection.title | escape -}}
+        </h2>  
+ 
+        {%- if collection.description != blank -%}
+        <div class="collection-description before-click">{{ collection.description | truncatewords: 13 }} <span class="show-whole-des">more</span></div>
+        <div class="collection-description after-click" style="display:none;">{{ collection.description }}</div>
+        {%- endif -%}
+        {% for metaobject in collection.metafields.custom.collection_link.value %}
+         <span class="collection-link"> <a href="{{ metaobject.link }}">{{ metaobject.title }}</a></span><span class="collection_bar">|</span>
+        {% endfor %}
+        </div>
+       
+      <div class="collection-image">
+       
+      </div>
+    </div>    
+  </div>
+
+   
+  <!--{% if section.settings.show_collection_image and collection.image %}
+
+  <div style="background-image: url({{ collection.image | image_url: width: 3000 }}); background-repeat: no-repeat; background-size: cover;">
+    <div style="background:rgba(0,0,0,0.3); width: 100%; height: 100%; z-index: 1;">
+    <div class="collection-hero__inner page-width" style="z-index: 2; width: 100%">
+      <div class="collection-hero__text-wrapper" style="text-align: center; width: 100%; margin: auto">
+        <h2 class="collection-hero__title" style="color: #fff;">
+          <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+          {{- collection.title | escape -}}
+        </h2>
+        {%- if section.settings.show_collection_description -%}
+        <div class="collection-hero__description rte" style="color: #fff; font-size: 15px;">{{ collection.description }}</div>
+        {%- endif -%}
+    </div>    
+  </div>
+
+{%- else -%}-->
+
+<!--{%- endif -%}-->
+  
+  <!--<div class="collection-hero__inner page-width">
+    <div class="collection-hero__text-wrapper">
+      <h1 class="collection-hero__title">
+        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+        {{- collection.title | escape -}}
+      </h1>
+
+      {%- if section.settings.show_collection_description -%}
+        <div class="collection-hero__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_collection_image and collection.image -%}
+      <div class="collection-hero__image-container media gradient">
+        <img
+          srcset="{%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
+            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {{ collection.image | image_url }} {{ collection.image.width }}w"
+          src="{{ collection.image | image_url: width: 750 }}"
+          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+          alt=""
+          width="{{ collection.image.width }}"
+          height="{{ collection.image.height }}"
+        >
+      </div>
+    {%- endif -%}
+  </div>-->
+
+{% if collection.metafields.custom.collections != blank %}
+<div class="additional-collections">
+<div id="additional-col" class="owl-carousel grid grid--5-col-desktop">
+{% for item in collection.metafields.custom.collections.value -%}
+  <div class="grid__item slide">
+  <a href="{{ item.url }}">
+     <div class="additional-image {{ section.settings.image-shape }}"> 
+        <img src="{{ item.featured_image | image_url }}" width="100px" height="100px" />
+     </div>   
+    <h4>{{ item.title }}</h4>
+  </a>
+  </div>
+{%- endfor %}
+</div>
+</div>
+{% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Opacity",
+      "default": 0.7
+    },
+    {
+      "type": "radio",
+      "id": "image-shape",
+      "label": "Collection Image Shape",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "rectangle",
+          "label": "Rectangle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  $("#additional-col").hide(); 
+  // setTimeout(function(){ 
+  //   $("#additional-col").show(); 
+  // }, 500); 
+  
+  $(document).ready(function() {
+    // Owl Carousel
+ $("#additional-col").show(); 
+    $("#additional-col").owlCarousel({
+      autoplay: true,
+      loop: false,
+      dots: false,  
+      autoplayTimeout: 3000,
+      nav: false,
+      lazyLoad:true,
+      navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+      animateIn: 'fadeIn',
+      animateOut: 'fadeOut',
+      responsive:{
+        0:{
+          items: 3
+        },
+        600:{
+          items: 3,
+         margin: 20,
+        },
+        768:{
+          items: 3
+        },
+        1024:{
+          items: 5
+        },
+        1200:{
+          items: 6
+        }
+      }
+    });
+  });
+</script>

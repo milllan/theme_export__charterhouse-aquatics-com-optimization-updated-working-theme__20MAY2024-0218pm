@@ -1,0 +1,75 @@
+<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+<style>
+  .gm-collection.gm-custom{
+    flex: 0 0 33% !important;
+    max-width: 33% !important;
+  }
+
+  .globo-overlay{
+    display: block !important;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9;
+    transition:all 0.4s ease-out;
+  }
+
+  .globo-overlay.active{
+     opacity: 1;
+    visibility: visible;
+  }
+
+  body div#shopify-section-top-header,
+  body div#shopify-section-header,
+  body div#shopify-section-announcement-bar,
+  body section.small-hide{
+    position:relative;
+    z-index:10;
+  }
+
+  body .navigation{
+    background:#fff !important;
+  }
+</style>
+<script>
+  var check = false;
+  var app_interval = setInterval(checkApp, 100);
+  function checkApp() {
+    if (typeof GloboMenuConfig == 'object' && $('.gm-menu').length) {
+      check = true;
+      clearInterval(app_interval);
+    }
+    if (check) {
+      $('.gm-menu-mobile img.gm-collection-img').each(function(){
+        $(this).closest('.gm-collection').addClass('gm-custom');
+      });
+
+      let paddingM = ($('body').width() - $('div#desktop-menu').width()) / 2;
+
+      $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-submenu.gm-mega').css('padding-left',paddingM+'px');
+      $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-submenu.gm-mega').css('padding-right',paddingM+'px');
+
+      $(window).resize(function(){
+        let paddingM = ($('body').width() - $('div#desktop-menu').width()) / 2;
+        $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-submenu.gm-mega').css('padding-left',paddingM+'px');
+        $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-submenu.gm-mega').css('padding-right',paddingM+'px');
+      });
+
+     
+      $('.menu-drawer__navigation-container').removeClass('menu-drawer__navigation-container');
+
+      $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0.gm-has-submenu').mouseenter(function(){
+        $('.globo-overlay').addClass('active');
+      });
+
+      $('.gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0.gm-has-submenu').mouseleave(function(){
+        $('.globo-overlay').removeClass('active');
+      });
+    }
+  }
+</script>

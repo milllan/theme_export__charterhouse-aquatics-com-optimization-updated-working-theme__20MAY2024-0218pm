@@ -1,0 +1,90 @@
+<div class="topbar">
+  <div class="page-width" style="padding-right: 25px; position: relative">
+    <!--<div style="position: relative; border: 1px solid red;">
+      <div class="promo-container">
+        <div class="promo"><a href="/pages/charterhouse-points"><i class="fa-sharp fa-regular fa-trophy-star"></i>&nbsp;&nbsp;Charterhouse Points</a></div>
+        <div class="promo"><a href="/pages/charterhouse-points"><i class="fa-sharp fa-regular fa-crown"></i>&nbsp;&nbsp;VIP Loyalty Program</a></div>
+      </div>
+    </div>-->
+    <div class="three-columns">
+      <div class="klarna">
+        <div class="text">Pay in 30 days with</div>
+        <div class="logo">
+          {% render 'icon-klarna' %}
+        </div>
+      </div>
+      
+      <div class="test">
+
+        <!--<div class="reviewsIO">
+          <div class="reviews-io-rating-bar-widget"
+  widget-id="WvKozMCF4rSV9snL"
+ data-store-name="charterhouse-aquatics.myshopify.com"
+ lang="en"
+ ></div>
+            <script src='//widget.reviews.io/modern-widgets/rating-bar.js'></script>
+        </div>-->
+
+        <ul id="new-slider" class="owl-carousel" style="display: none">
+          <!--<li class="slid">
+            Split in 3 & Pay in 30 days with &nbsp;{% render 'icon-klarna' %}
+          </li>-->
+          <li class="slid">{% render 'icon-clock' %} &nbsp;&nbsp;Order by 4pm for next day delivery</li>
+          <li class="slid">{% render 'icon-tag' %} &nbsp;&nbsp;We offer &nbsp;<b>price match</b>&nbsp;, we aim to match any price!</li>
+          <li class="slid">{% render 'icon-truck' %} &nbsp;&nbsp;Free &nbsp;<b>next day</b>&nbsp; delivery when you spend &pound;50</li>
+          <li class="slid">{% render 'icon-check-square' %} &nbsp;&nbsp;Hassle free returns</li>
+        </ul>
+        
+      </div>
+      
+      <div class="links">
+        <!--<a href="https://www.youtube.com/c/CharterhouseTV/about" target="_blank">{% render 'icon-youtube' %} &nbsp;Charterhouse TV</a>-->
+        <!--<a>{% render 'icon-phone' %} &nbsp;0203 697 3750</a>-->
+        <a href="/pages/contact">{% render 'icon-contact' %} &nbsp;Contact Us</a>
+        <a href="/pages/help-faq">{% render 'icon-help' %} &nbsp;Help & FAQ</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Top Header",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+
+$("#new-slider").hide(); 
+setTimeout(function(){ 
+	$("#new-slider").show(); 
+},500); 
+  
+$(document).ready(function() {
+  // Owl Carousel
+    $("#new-slider").owlCarousel({
+      autoplay: true,
+      loop:true,
+      Dots:false,  
+      autoplayTimeout: 5000,
+      nav: false,
+      animateIn: 'fadeIn',
+animateOut: 'fadeOut',
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:1
+          },
+          1000:{
+              items:1
+          }
+      }
+  })
+});
+
+{% endjavascript %}

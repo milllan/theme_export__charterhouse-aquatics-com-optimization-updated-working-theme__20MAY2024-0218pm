@@ -1,0 +1,276 @@
+.site-footer {
+  background-color: #22262D;
+  color: #65686C;
+}
+
+/* Klayvio */
+
+.klayvio {
+  padding: 10px 0 20px 0;
+  border-bottom: 1px solid #65686C;
+}
+
+
+.klayvio .klayv-form {
+  margin-top: 55px;
+  padding-top: 15px;
+}
+
+.klayvio .title h3 {
+  font-size: 35px;
+  color: #FFF;
+}
+.klaviyo-form-ViwKyy span {
+    font-size: 14px!important;
+}
+@media screen and (min-width: 990px) {
+  .klayvio {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .klayvio .title h3 {
+    font-size: 20px;
+  }
+  .klayvio input {
+    width: 100% !important;
+  }
+  .klayvio .klayv-form {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+}
+
+/* End Klayvio */
+
+/* Info Columns */
+
+.info-columns {
+  padding: 10px 0 20px 0;
+}
+
+.info-columns .columns {
+  border-bottom: 1px solid #65686C;
+}
+
+.info-columns .columns.contact {
+  border: 0;
+}
+
+.info-columns .columns .reviews-content {
+  padding-bottom: 20px;
+}
+
+.info-columns h4 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.info-columns .opening .opening-title {
+  color: #fff;
+}
+
+.info-columns .opening .opening-info {
+  padding-bottom: 25px;
+  padding-top: 5px;
+}
+
+.info-columns .opening .opening-info#next-day {
+  color: green;
+}
+
+.info-columns .contact ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.info-columns .contact .contact-info li:first-child {
+   display:flex;
+   align-items:baseline;
+}
+.info-columns .contact ul > li {
+  margin-bottom: 10px;
+  margin-left: 0;
+  font-size: 14px;
+}
+
+.info-columns .contact ul > li a {
+  text-decoration: none;
+  color: #65686C;
+}
+
+.info-columns .contact ul > li a:hover {
+  color: #fff;
+}
+
+.info-columns .social {
+  padding-top: 15px;
+}
+
+.info-columns .social svg {
+  width: 25px;
+  color: #fff;
+}
+
+.info-columns .social ul > li {
+  display: inline;
+  padding-right: 25px;
+}
+
+@media screen and (min-width: 990px) {
+  .info-columns {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    padding: 60px 0 60px 0;
+  }
+  .info-columns .columns {
+    border: 0;
+  }
+}
+
+/* Rights */
+
+.rights {
+  background-color: #292D34;
+  width: 100%;
+  padding: 10px 0 10px 0;
+  font-size: 13px;
+  text-align: center;
+}
+
+.rights a {
+  color: #65686C;
+  text-decoration: none;
+  
+}
+
+.rights a:hover {
+  color: #fff;
+}
+
+.rights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-top: 15px;
+}
+
+.rights ul > li {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.rights ul > li a {
+  color: #65686C;
+  text-decoration: none;
+}
+
+.rights ul > li a:hover {
+  color: #fff;
+}
+
+.rights .klarna {
+  text-align: center;
+  width: 100%;
+}
+
+.rights .klarna .center {
+  margin: auto 0;
+  width: 320px;
+  display: inline-block;
+}
+.rights-container .menu {
+ display:flex;
+  justify-content:center;
+}
+.ElementsWidget-prefix .ElementsWidget .ElementsWidget__form .u-hr--bottom {
+display:none;
+}
+@media screen and (min-width: 990px) {
+  .rights {
+    padding: 20px 0 20px 0;
+    text-align: left;
+  }
+  .rights .rights-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .rights .menu {
+    text-align: right;
+  }
+  .rights ul > li {
+    margin-left: 10px;
+  }
+}
+
+/* End Rights */
+
+/* Features */
+
+.features {
+  width: 100%;
+  padding: 20px 0 20px 0;
+  background-color: #FAFBFE;
+}
+
+.features .features-grid .feature {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+
+  .features {
+    padding: 80px 0 80px 0;
+  }
+  
+  .features .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .features .features-grid .feature {
+    padding: 20px;
+    margin-top: 0;
+  }
+}
+
+svg .feather-box {
+  width: 150px;
+}
+
+.features .features-grid .feature h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.features .features-grid .feature p {
+  font-size: 12px;
+  line-height: 24px;
+  color: #777;
+}
+
+.features .features-grid .feature a {
+  color: #53AEE0;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.features .features-grid .feature .icon svg {
+  vertical-align: bottom;
+  width: 14px;
+  padding-top: 5px;
+}
+
+/* End Features */
+
+@media screen and (max-width: 768px) {
+
+  .features .features-grid .feature {
+    width: 100%;
+  }
+}

@@ -1,0 +1,86 @@
+<div class="navbar">
+     {%- for block in section.blocks -%}
+    {%- if block.settings.main-menu != blank -%}
+  <div class="dropdown Menu-{{ block.settings.main-menu }}" id="dropdown-{{forloop.index }}" {{ block.shopify_attributes }}>
+    <div class="dropbtn">
+      {%- if block.settings.menu-url != blank -%}
+      <a href="{{ block.settings.menu-url }}" style="padding: 0;">{{ block.settings.main-menu }} </a>
+      {% else %}
+      {{ block.settings.main-menu }}
+      {%- endif -%}
+    </div>
+    <div class="dropdown-content"> 
+      <div class="row">
+              {% if block.settings.main-menu == 'Contact' %}
+               {% render 'custom-contant-menu' %}
+             {% endif %}
+          {%- if block.settings.menu != blank  and block.settings.main-menu != 'Contact' -%}
+            <ul class="parent-custom-Block-menu">
+            {%- for link in block.settings.menu.links -%}
+              <li id="mega-{{ block.settings.main-menu  }}-{{ forloop.index }}" class="mega_menu">
+                <a href="{{ link.url }}" class="link-title-block-menu">
+                  {{ link.title }} 
+                  <span>></span>
+                </a> 
+               </li>
+            {%- endfor -%}
+            </ul>
+         <ul class="contents-contant Child-Menu">
+            {%- for link in block.settings.menu.links -%}
+              <li id="content-{{ block.settings.main-menu  }}-{{forloop.index }}" class="hide_menu">
+              <ul>
+              {%- for childlink in link.links -%}
+                  <li>
+                   {%- if childlink.url == "#" -%}
+                   <span class="childlink_heading"> {{ childlink.title }}</span>
+                    {% else %}
+                   <a href="{{ childlink.url }}" >
+                  {{ childlink.title }}
+                   </a>
+                   {%- endif -%}
+                     <ul class="grandchildlink">
+                      {%- for grandchildlink in childlink.links -%} 
+                      <li> 
+                        {% if grandchildlink.url == '#' %}
+                        <a class="Child-menu nolink">
+                         {{ grandchildlink.title }}
+                       </a>
+                          {% else %}
+                        <a href="{{ grandchildlink.url }}" class="Child-menu">
+                      {{ grandchildlink.title }}
+                       </a>
+                          {% endif %}
+                    
+                      </li>
+                      {%- endfor -%}
+                     </ul>
+                  </li>
+                 {%- endfor -%}
+                  <li class="menu_collection_images">
+                     {% for collection in collections %}  {% if collection.url == link.url and collection.metafields.custom.mega_menu_collection != blank %}<span class="childlink_heading">Featured</span> {% endif %} {% endfor %}
+                  <span class="menu_collection_image{% if link.title == 'Fittings' %} coll-single-image{% endif %}">
+                  {% for collection in collections %}
+                      {% if collection.url == link.url  %}
+                      {% for item in collection.metafields.custom.mega_menu_collection.value %}  
+                        <a href="{{ item.link }}"> 
+                        <img src="{{ item.image | img_url: 'master' }}" />
+                        <h4>{{ item.title }}</h4>
+                       </a>
+                        {% endfor %}
+                        {% endif %}
+                  {% endfor %}
+                  </span>
+                  </li>
+          
+              </ul>
+               </li>
+             {%- endfor -%}
+             </ul>
+          {%- endif -%}
+          
+        </div>
+    </div>
+  </div> 
+   {%- endif -%}
+  {%- endfor -%}
+</div>

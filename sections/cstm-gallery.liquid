@@ -1,0 +1,144 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+.container
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr))
+  justify-items: center
+  grid-gap: 0
+  
+.item
+  width: 100%
+  overflow: hidden
+  background: #000
+      
+img
+  opacity: 0.6
+  width: 100%
+  height: 100%
+  transform: scale(1.15)
+  transition: transform 0.5s, opacity 0.5s
+  
+img:hover
+  opacity: 1
+  transform: scale(1.03)
+
+{%- endstyle -%}
+
+<div class="gallery-sec  section-{{ section.id }}-padding {% if section.settings.section-class != blank %}{{ section.settings.section-class }}{% endif %}">
+  <div class="">
+    <div class="grid grid--1-col">
+      <div class="grid__item gallery-sec-inner">
+        {% if section.settings.section-heading or section.settings.section-description != blank %}
+          <div class="gallery-content text-center">
+          {%- if section.settings.section-heading != blank -%}
+            <h2 class="title h1 mt-0 mb-32 pink heading_title">{{ section.settings.section-heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section-description != blank -%}
+            {{ section.settings.section-description }}
+          {%- endif -%}
+          </div>
+        {% endif %}
+  
+        <div class="cstm_gallery grid grid--1-col grid--2-col-tablet grid--{{ section.settings.gallery-items }}-col-desktop magnific-grid">
+          {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'image' -%}
+                <div class="grid__item magnific-img" {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.image | img_url: 'master' }}" data-fancybox="gallery"><div class="item">{{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy' }}
+                    <p class="gallery_title">{{ block.settings.text}}</p></div></a>
+                </div>
+              {% endcase %}
+          {% endfor %}
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Gallery",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section-heading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "section-description",
+      "label": "Section Description"
+    },
+    {
+      "type": "range",
+      "id": "gallery-items",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Gallery Items in a Row",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "section-class",
+      "label": "Section Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.image-with-text.settings.image.label"
+        },
+         {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery"
+    }
+  ]
+}
+{% endschema %}

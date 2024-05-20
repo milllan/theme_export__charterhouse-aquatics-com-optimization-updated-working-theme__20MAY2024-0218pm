@@ -1,0 +1,209 @@
+<div class="main_cstm_case_studies">
+{% if section.settings.section-heading or section.settings.section-description != blank %}
+          <div class="gallery-content text-center">
+          {%- if section.settings.section-heading != blank -%}
+            <h2 class="title h1 mt-0 mb-32 pink heading_title">{{ section.settings.section-heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section-description != blank -%}
+            {{ section.settings.section-description }}
+          {%- endif -%}
+          </div>
+        {% endif %}
+ {%- for block in section.blocks -%}
+ <div class="case_studiespopup" id="popup-{{  forloop.index }}">
+               <header class="side-panel-header">
+              	<a class="side-panel-close">X</a> 
+              	<h2 class="side-panel-title">{{ block.settings.text}}</h2> 
+              </header> 
+              <div class="side-panel-body"> 
+              <p class="text-gray text-lg">{{ block.settings.textarea}}</p> 
+                </div>
+                 <div class="case_image owl-carousel owl-theme">
+                   {%- if block.settings.image1 != blank -%} <div class="item">{{ block.settings.image1 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                    {%- if block.settings.image2 != blank -%}<div class="item">{{ block.settings.image2 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                    {%- if block.settings.image3 != blank -%}<div class="item">{{ block.settings.image3 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                    {%- if block.settings.image4 != blank -%}<div class="item">{{ block.settings.image4 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                   {%- if block.settings.image5 != blank -%} <div class="item">{{ block.settings.image5 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                   {%- if block.settings.image6 != blank -%} <div class="item">{{ block.settings.image6 | image_url: width: 500 | image_tag: loading: 'lazy' }}</div>{%- endif -%}
+                </div>
+                 <p class="padding-top-1x">{{ block.settings.popup_des}}</p> 
+                <footer class="side-panel-footer text-right"> 
+                	<div class="product-share">
+                		<span class="share-label">Share this:</span> 
+                		<div class="share-buttons">
+                			{%- if block.settings.face_link != blank -%}<a href="{{ block.settings.face_link}}"> <i class="fa fa-facebook-f"></i></a> {%- endif -%}
+                			{%- if block.settings.twitter_link != blank -%}<a href="{{ block.settings.twitter_link}}"> <i class="fa fa-twitter"></i></a> {%- endif -%}
+                			{%- if block.settings.google_link != blank -%}<a href="{{ block.settings.google_link}}"> <i class="fa fa-google-plus"></i></a> {%- endif -%}
+                			{%- if block.settings.instagram_link != blank -%}<a href="{{ block.settings.instagram_link}}"><i class="fa fa-instagram"></i></a> {%- endif -%}
+                		</div> 
+                	</div> 
+            </footer>
+             </div>
+ {% endfor %}
+
+<section class="cstm_case_slider">
+  <div class="full-width">
+   <div class="grid grid--{{ section.settings.gallery-items }}-col-desktop">
+          {%- for block in section.blocks -%}
+             <div class="cstm_case_studies grid__item " {{ block.shopify_attributes }} id="pupopopen-{{ forloop.index }}">
+            <div class="case_studies">{{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy' }}
+              <span class="view_button">{{ block.settings.button}}   
+             <i class='fas fa-long-arrow-alt-right'></i></span>
+              <div class="contant">
+              <p class="case-study-title">{{ block.settings.text}}</p>
+              <p class="case-study-subtitle">{{ block.settings.textarea}}</p>  
+              </div>
+            </div>
+             </div>
+             {% endfor %}
+        </div>
+  </div>
+ </section> 
+</div>
+<script>
+  
+</script>
+{% schema %}
+{
+  "name": "Case studies",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section-heading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "section-description",
+      "label": "Section Description"
+    },
+    {
+      "type": "range",
+      "id": "gallery-items",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Gallery Items in a Row",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "section-class",
+      "label": "Section Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.image-with-text.settings.image.label"
+        },
+         {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "textarea",
+          "label": "Description"
+        },
+         {
+          "type": "text",
+          "id": "button",
+          "label": "Button"
+        },
+         {
+           "type": "header",
+          "content": "Popup contant"
+          },
+         {
+          "type": "richtext",
+          "id": "popup_des",
+          "label": "Popup Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "First popup image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Second popup image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Third popup image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Fourth popup image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image5",
+          "label": "Fifth popup image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image6",
+          "label": "Sixth popup image"
+        },
+        {
+          "type": "url",
+          "id": "face_link",
+          "label": "Facebook link"
+        },
+        {
+          "type": "url",
+          "id": "twitter_link",
+          "label": "Twitter link"
+        },
+        {
+          "type": "url",
+          "id": "google_link",
+          "label": "Google link"
+        },
+        {
+          "type": "url",
+          "id": "instagram_link",
+          "label": "Instagram link"
+        }
+     ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cstm case studies"
+    }
+  ]
+}
+{% endschema %}
