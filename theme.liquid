@@ -334,6 +334,11 @@
       .boost-sd__in-collection-search, .boost-sd__in-collection-search--vertical {
           display: none;
       }
+
+      .boost-sd__banner-placeholder {
+        max-height:0px;
+        display:none;
+      }
       .boost-sd__filter-block,
       .boost-sd__product-list {
         min-height: 2400px;
@@ -345,22 +350,32 @@
       #betterPriceWrapper{
         min-height:33px
       }
-      .shopify-payment-button__button--branded,
-      .shopify-payment-button__button--branded .shopify-cleanslate{
-        min-height:46px
+      .product-form__buttons{
+        min-height:137px
       }
-      .shopify-payment-button__more-options {
-        min-height: 18px;
-      }
-      #shopify-section-template--15706617938055__17102647263d908f13,
-      #shopify-section-template--15706617938055__1710266968f66e5367{
-        min-height:500px
-      }
+        div.shopify-payment-button__button--branded,
+        div.shopify-payment-button__button--branded .shopify-cleanslate{
+          min-height:46px
+        }
+        .shopify-payment-button__more-options {
+            min-height: 18px;
+        }
       @media only screen and (max-width: 767px) {
+        #shopify-section-template--15706617938055__17102647263d908f13,
+        #shopify-section-template--15706617938055__1710266968f66e5367{
+          min-height:500px
+        }
         .boost-sd__toolbar {
           min-height: 106.33px
         }
+
+        /* "Frequently bought together" CLS */
+        #shopify-section-template--15706617938055__17098352883d333997,
+        #boost-sd-widget-productpage-502121{
+          min-height:545px
+        }
       }
+
 
       /*.shopify-section{
         contain:layout
@@ -554,42 +569,67 @@
      <h3 style="display:none" >{{page.title }}</h3>
 
     <script>
-      function handleCLS_SC() {
-        if (window.scrollY > 99) {
-          window.removeEventListener('scroll', handleCLS_SC);
-          //console.log('User scrolled past 99 pixels.');
-          setTimeout(handleCLS,99)
-        }
-      };
-      function handleCLS() {
-        let recommSectionEl = document.querySelector('#shopify-section-template--15706617938055__1710266968f66e5367 .boost-sd__recommendation');
-        //console.log('recommSectionEl',recommSectionEl);
-        if (!recommSectionEl) {
-          setTimeout(handleCLS,99)
-        } else {
-          let isRecommSectionEmpty = recommSectionEl.childElementCount === 0;
-          //console.log('isRecommSectionEmpty',isRecommSectionEmpty);
-          if (isRecommSectionEmpty) {
-            recommSectionEl.remove();
-            document.querySelector('#shopify-section-template--15706617938055__1710266968f66e5367').style.minHeight = "0px";
-          }
-        }
+function handleCLS_SC() {
+  if (window.scrollY > 9) {
+    window.removeEventListener('scroll', handleCLS_SC);
+    setTimeout(handleCLS, 99);
+  }
+};
 
-        let reviewsSectionEl = document.querySelector('#shopify-section-template--15706617938055__17102647263d908f13 .boost-sd__recommendation');
-        //console.log('reviewsSectionEl',reviewsSectionEl);
-        if (!reviewsSectionEl) {
-          setTimeout(handleCLS,99)
-        } else {
-          let isReviewsSectionEmpty = reviewsSectionEl.childElementCount === 0;
-          //console.log('isReviewsSectionEmpty',isReviewsSectionEmpty);
-          if (isReviewsSectionEmpty) {
-            reviewsSectionEl.remove();
-            document.querySelector('#shopify-section-template--15706617938055__17102647263d908f13').style.minHeight = "0px";
-          }
-        }
-        
-      };
-      window.addEventListener('scroll', handleCLS_SC);
+function handleCLS() {
+  window.removeEventListener('mousemove', handleCLS);
+  let recommSectionEl = document.querySelector('#shopify-section-template--15706617938055__1710266968f66e5367 .boost-sd__recommendation');
+  let isRecommSectionDone = false;
+  if (!isRecommSectionDone) {
+    if (!recommSectionEl) {
+      setTimeout(handleCLS, 99);
+    } else {
+      let isRecommSectionEmpty = recommSectionEl.childElementCount === 0;
+      console.log('isRecommSectionEmpty', isRecommSectionEmpty);
+      if (isRecommSectionEmpty) {
+        isRecommSectionDone = true;
+        recommSectionEl.remove();
+        document.querySelector('#shopify-section-template--15706617938055__1710266968f66e5367').style.minHeight = "0px";
+      }
+    }
+  }
+
+  let reviewsSectionEl = document.querySelector('#shopify-section-template--15706617938055__17102647263d908f13 .boost-sd__recommendation');
+  let isReviewSectionDone = false;
+  if (!isReviewSectionDone) {
+    if (!reviewsSectionEl) {
+      setTimeout(handleCLS, 99);
+    } else {
+      let isReviewsSectionEmpty = reviewsSectionEl.childElementCount === 0;
+      console.log('isReviewsSectionEmpty', isReviewsSectionEmpty);
+      if (isReviewsSectionEmpty) {
+        isReviewSectionDone = true;
+        reviewsSectionEl.remove();
+        document.querySelector('#shopify-section-template--15706617938055__17102647263d908f13').style.minHeight = "0px";
+      }
+    }
+  }
+
+  let fbtSectionEl = document.querySelector('#shopify-section-template--15706617938055__17098352883d333997 .boost-sd__recommendation');
+  let isFbtSectionDone = false;
+  if (!isFbtSectionDone) {
+    if (!fbtSectionEl) {
+      console.log('fbtSectionEl', fbtSectionEl);
+      setTimeout(handleCLS, 99);
+    } else {
+      let isFbtSectionEmpty = fbtSectionEl.childElementCount === 0;
+      console.log('isFbtSectionEmpty', isFbtSectionEmpty);
+      if (isFbtSectionEmpty) {
+        isFbtSectionDone = true;
+        fbtSectionEl.remove();
+        document.querySelector('#shopify-section-template--15706617938055__17098352883d333997').style.minHeight = "0px";
+      }
+    }
+  }
+};
+
+window.addEventListener('scroll', handleCLS_SC);
+window.addEventListener('mousemove', handleCLS);
     </script>
 
 </body>

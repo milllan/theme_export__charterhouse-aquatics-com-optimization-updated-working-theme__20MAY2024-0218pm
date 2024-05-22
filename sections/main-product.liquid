@@ -1189,7 +1189,7 @@
       <h3>Product Description</h3>
     </div> 
     <div id="mySidepanel__content" class="sidepanel__content">
-      {{ product.description }}
+      {{ product.description   | replace:'<h1','<h2 class="h1"'  | replace:'</h1','</h2' }}
     </div> 
     <div id="mySidepanel__footer" class="close--button">
       <a class="button button--full-width" id="close--button" onClick="closeNav()" style="color: #fff; padding-top: 15px; cursor:pointer">Close</a>

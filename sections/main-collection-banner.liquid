@@ -21,8 +21,10 @@
         </h2>  
  
         {%- if collection.description != blank -%}
+          {% comment %}
         <div class="collection-description before-click">{{ collection.description | truncatewords: 13 }} <span class="show-whole-des">more</span></div>
-        <div class="collection-description after-click" style="display:none;">{{ collection.description }}</div>
+          {% endcomment %}
+        <div class="collection-description after-click">{{ collection.description }}</div>
         {%- endif -%}
         {% for metaobject in collection.metafields.custom.collection_link.value %}
          <span class="collection-link"> <a href="{{ metaobject.link }}">{{ metaobject.title }}</a></span><span class="collection_bar">|</span>

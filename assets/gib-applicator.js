@@ -77,13 +77,13 @@ const applyGibDate = ({ element, hasIcon }, data) => {
 const scheduleGibCheck = () => {
     const requestData = findLoadingData();
     if(requestData.length > 0){
-        console.log(`Getting ${requestData.length} GiB items.`);
+        //console.log(`Getting ${requestData.length} GiB items.`);
         getGibDates(requestData).then(() => {
             // Schedule the next check after the current request completes
             setTimeout(scheduleGibCheck, 1000);
         });
     } else {
-        console.log(`0 GiB items. Skipping...`);
+       // console.log(`0 GiB items. Skipping...`);
         // Still need to schedule the next check
         setTimeout(scheduleGibCheck, 1000);
     }
